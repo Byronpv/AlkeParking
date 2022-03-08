@@ -13,9 +13,3 @@ data class Vehicle(val plate: String) {
 
 }
 
-fun main() {
-    val test = Vehicle("RGV408")
-    val test1 = Vehicle("RGV409")
-    println(test.equals(test1))
-    println(test.hashCode())
-}
