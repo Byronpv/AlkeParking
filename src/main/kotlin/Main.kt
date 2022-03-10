@@ -14,7 +14,7 @@ class Main {
         private fun showMenu() {
             do {
                 println("------------------------")
-                println("Welcome to AlkeParking!! \n 1. Enter vehicle \n 2. Remove vehicle \n 3. View list vehicles \n 4. View earnings \n 5. Leave")
+                println("Welcome to AlkeParking!! \n 1. Enter vehicle \n 2. Remove vehicle \n 3. View vehicles list \n 4. View earnings \n 5. Leave")
                 option = readLine()?.toInt()!!
                 println("Selected option $option")
                 when (option) {
