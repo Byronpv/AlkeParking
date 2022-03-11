@@ -3,9 +3,7 @@ import java.util.*
 class Main {
     companion object {
         private val parking = Parking(mutableSetOf())
-        lateinit var removeCar: Vehicle
         lateinit var parkingSpace: ParkingSpace
-
 
         @JvmStatic
         fun main(args: Array<String>) {
@@ -44,7 +42,11 @@ class Main {
             } while (option != 5)
         }
 
+        /**
+        This method add the vehicles and, in turn, validates that the vehicles aren't repeated
+        otherwise, it returns a failed message
 
+         */
         private fun addVehicle(vehiclePlate: String?, vehicleType: Int?, discountCard: String?) {
 
             val vehicleTypeInput = getVehicleType(vehicleType)
@@ -67,10 +69,16 @@ class Main {
             return vehicleTypeInput
         }
 
+
+        /**
+        This method remove the vehicles and calculate the fee that should pay, but first,
+        validate that the vehicle's plate is in the parking lot
+         */
+
         private fun removeVehicle(plate: String?) {
 
             try {
-                removeCar = parking.vehicles.find { it.plate == plate }!!
+                var removeCar = parking.vehicles.find { it.plate == plate }!!
                 parkingSpace = ParkingSpace(removeCar)
                 val vehicleType = removeCar.type
                 val indexVehicle = parking.vehicles.indexOf(removeCar)
