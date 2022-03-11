@@ -1,8 +1,8 @@
 import java.util.*
-import kotlin.math.ceil
 import kotlin.math.floor
-import kotlin.math.roundToInt
 
+const val TWO_HOURS = 5000L
+const val FIFTEEN_MINUTES = 2000L
 
 data class ParkingSpace(var vehicle: Vehicle) {
     private var vehicleList = mutableSetOf<Vehicle>()
@@ -19,8 +19,8 @@ data class ParkingSpace(var vehicle: Vehicle) {
 
 
     fun checkOutVehicle(plate: String?, indexVehicle: Int, vehicleType: VehicleType?) {
-            when (plate?.let { vehicleList.elementAt(indexVehicle).plate.contains(it)}) {
-            true-> {
+        when (plate?.let { vehicleList.elementAt(indexVehicle).plate.contains(it) }) {
+            true -> {
                 val fee = calculateFee(vehicleList.elementAt(indexVehicle), vehicleType)
                 onSuccess(fee, vehicleList.elementAt(indexVehicle))
             }
@@ -35,16 +35,31 @@ data class ParkingSpace(var vehicle: Vehicle) {
         val parkedTime = (Calendar.getInstance().timeInMillis - vehicle.checkInTime.timeInMillis)
         val hasDiscountCard = vehicle.discountCard?.isNotBlank() == true
         var totalFee = 0
-        when (parkedTime <= 720000) {
+        var timeOut = 0
+
+        when (parkedTime <= TWO_HOURS) {
             true -> totalFee = vehicleType?.rate ?: 0
-            else -> {}
+            else -> {
+                for (i in 0..parkedTime) {
+                    if (parkedTime > TWO_HOURS) {
+                        val parkedTimeOut = parkedTime - TWO_HOURS
+                        for (i in 0..parkedTimeOut step FIFTEEN_MINUTES) {
+                            timeOut++
+                        }
+                        totalFee = vehicleType?.rate?.plus(timeOut * 5) ?: 0
+                        break
+                    }
+
+                }
+
+            }
         }
         when (hasDiscountCard) {
             true -> {
                 val discountCard = floor(totalFee * 0.15).toInt()
                 totalFee -= discountCard
             }
-            false -> println("There is no discount")
+            false -> println("----There is no discount----")
         }
         return totalFee
     }
@@ -52,14 +67,14 @@ data class ParkingSpace(var vehicle: Vehicle) {
 
     private fun onSuccess(fee: Int, vehicle: Vehicle) {
 
-        println("Your fee is $fee. Come back soon.")
+        println("|Your fee is $fee. Come back soon.|")
         vehicleList.remove(vehicle)
         countRemoveVehicles += 1
         Parking.totalEarnings = Pair(countRemoveVehicles, fee + addFee)
         addFee += fee
     }
 
-   private fun onError() = println("Sorry, the check-out failed")
+    private fun onError() = println("*** Sorry, the check-out failed ***")
 
 
 }
