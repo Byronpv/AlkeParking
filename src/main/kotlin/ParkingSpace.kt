@@ -1,8 +1,8 @@
 import java.util.*
 import kotlin.math.floor
 
-const val TWO_HOURS = 5000L
-const val FIFTEEN_MINUTES = 2000L
+const val TWO_HOURS = 720000L
+const val FIFTEEN_MINUTES = 90000L
 
 data class ParkingSpace(var vehicle: Vehicle) {
     private var vehicleList = mutableSetOf<Vehicle>()
@@ -70,7 +70,7 @@ data class ParkingSpace(var vehicle: Vehicle) {
         println("|Your fee is $fee. Come back soon.|")
         vehicleList.remove(vehicle)
         countRemoveVehicles += 1
-        Parking.totalEarnings = Pair(countRemoveVehicles, fee + addFee)
+        Parking.totalEarnings = Pair(countRemoveVehicles, (fee + addFee))
         addFee += fee
     }
 
