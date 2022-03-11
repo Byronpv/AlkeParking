@@ -1,6 +1,6 @@
 import java.util.*
 
-const val MAXIMUM_QUOTAS = 3
+const val MAXIMUM_QUOTAS = 20
 
 data class Parking(val vehicles: MutableSet<Vehicle>) {
 
