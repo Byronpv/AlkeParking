@@ -23,7 +23,7 @@ class Main {
                         println("Add vechile type: \n 1.CAR \n 2.MOTORCYCLE \n 3.MINIBUS \n 4.BUS")
                         val vehicleType = readLine()?.toInt()
                         println("Input Plate: ")
-                        val vehiclePlate = readLine()
+                        val vehiclePlate = readLine()?.toUpperCase()
                         println("Your have a discount card?")
                         val discountCard = readLine()
                         addVehicle(vehiclePlate, vehicleType, discountCard)

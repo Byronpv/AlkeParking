@@ -1,10 +1,11 @@
 import java.util.*
+import kotlin.math.ceil
 import kotlin.math.floor
 
 const val TWO_HOURS = 720000L
 const val FIFTEEN_MINUTES = 90000L
 
-data class ParkingSpace(var vehicle: Vehicle) {
+ data class ParkingSpace(var vehicle: Vehicle) {
     private var vehicleList = mutableSetOf<Vehicle>()
 
     companion object {
@@ -56,7 +57,9 @@ data class ParkingSpace(var vehicle: Vehicle) {
         }
         when (hasDiscountCard) {
             true -> {
-                val discountCard = floor(totalFee * 0.15).toInt()
+                // 15 * 0.15 = 2,75 15-2,25 = 12,75 = 12 /// 13
+                val discountCard = ceil(totalFee * 0.15).toInt()
+                println(discountCard)
                 totalFee -= discountCard
             }
             false -> println("----There is no discount----")

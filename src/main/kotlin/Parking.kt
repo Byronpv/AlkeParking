@@ -16,7 +16,7 @@ data class Parking(val vehicles: MutableSet<Vehicle>) {
         return availableQuotas
     }
 
-    fun totalEarnings() = println("${totalEarnings.first} vehicles have checked out and have earnigs of ${totalEarnings.second}")
+    fun totalEarnings() = println("${totalEarnings.first} vehicles have checked out and have earnings of ${totalEarnings.second}")
 
     fun listVehicles(vehicle: MutableSet<Vehicle>) = vehicle.forEach { println(it.plate) }
 }
