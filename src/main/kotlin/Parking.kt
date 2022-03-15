@@ -34,7 +34,6 @@ data class Parking(val vehicles: MutableSet<Vehicle>) {
 -- Should it be defined as a variable or as a constant in Vehicle?
    As a variable, because if it is required to add or edit more Vehicles already exiting, the variable Type the Class Vehicle must be a variable
 
-
 -- Where should the checkInTime and discountCard properties be added, in ParkingSpace, Vehicle or both?
    In the class ParkingSpace, because already exists to instance of Vehicle
 

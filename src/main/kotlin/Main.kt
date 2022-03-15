@@ -30,7 +30,7 @@ class Main {
                     }
                     2 -> {
                         println("Input the plate to remove:")
-                        val vehiclePlate = readLine()
+                        val vehiclePlate = readLine()?.toUpperCase()
                         removeVehicle(vehiclePlate)
                     }
                     3 -> {
@@ -72,18 +72,20 @@ class Main {
 
         /**
         This method remove the vehicles and calculate the fee that should pay, but first,
-        validate that the vehicle's plate is in the parking lot
+        validate that the vehicle's plate is in the parking lot. In addition, we obtain the type of vehicle, the list of vehicles,
+        and the index that we enter as parameters in the method checkOutVehicle.
          */
 
         private fun removeVehicle(plate: String?) {
 
             try {
-                var removeCar = parking.vehicles.find { it.plate == plate }!!
+                val removeCar = parking.vehicles.find { it.plate == plate }!!
                 parkingSpace = ParkingSpace(removeCar)
                 val vehicleType = removeCar.type
                 val indexVehicle = parking.vehicles.indexOf(removeCar)
+                println(indexVehicle)
                 parkingSpace.getListVehicles(parking.vehicles)
-                removeCar.plate.let { parkingSpace.checkOutVehicle(plate, indexVehicle, vehicleType) }
+                parkingSpace.checkOutVehicle(plate, indexVehicle, vehicleType)
             } catch (e: Exception) {
                 println("Sorry, the check-out failed")
             }

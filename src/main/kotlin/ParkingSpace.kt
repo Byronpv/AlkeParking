@@ -5,7 +5,7 @@ import kotlin.math.floor
 const val TWO_HOURS = 720000L
 const val FIFTEEN_MINUTES = 90000L
 
- data class ParkingSpace(var vehicle: Vehicle) {
+data class ParkingSpace(var vehicle: Vehicle) {
     private var vehicleList = mutableSetOf<Vehicle>()
 
     companion object {
@@ -20,10 +20,12 @@ const val FIFTEEN_MINUTES = 90000L
 
 
     fun checkOutVehicle(plate: String?, indexVehicle: Int, vehicleType: VehicleType?) {
-        when (plate?.let { vehicleList.elementAt(indexVehicle).plate.contains(it) }) {
+        val vehicle = vehicleList.elementAt(indexVehicle)
+
+        when (plate?.let { vehicle.plate.contains(it) }) {
             true -> {
-                val fee = calculateFee(vehicleList.elementAt(indexVehicle), vehicleType)
-                onSuccess(fee, vehicleList.elementAt(indexVehicle))
+                val fee = calculateFee(vehicle, vehicleType)
+                onSuccess(fee, vehicle)
             }
             else -> onError()
         }
@@ -57,7 +59,7 @@ const val FIFTEEN_MINUTES = 90000L
         }
         when (hasDiscountCard) {
             true -> {
-                // 15 * 0.15 = 2,75 15-2,25 = 12,75 = 12 /// 13
+                // 15 * 0.15 = 2,25 15-2,25 = 12,75 = 12 /// 13
                 val discountCard = ceil(totalFee * 0.15).toInt()
                 println(discountCard)
                 totalFee -= discountCard
