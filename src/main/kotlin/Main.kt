@@ -83,7 +83,6 @@ class Main {
                 parkingSpace = ParkingSpace(removeCar)
                 val vehicleType = removeCar.type
                 val indexVehicle = parking.vehicles.indexOf(removeCar)
-                println(indexVehicle)
                 parkingSpace.setListVehicles(parking.vehicles)
                 parkingSpace.checkOutVehicle(plate, indexVehicle, vehicleType)
             } catch (e: Exception) {

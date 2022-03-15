@@ -1,4 +1,4 @@
-enum class VehicleType(val rate: Int){
+enum class VehicleType(val rate: Int) {
 
     CAR(20),
     MOTORCYCLE(15),
