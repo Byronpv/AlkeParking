@@ -5,7 +5,7 @@ const val TWO_HOURS = 720000L
 const val FIFTEEN_MINUTES = 90000L
 
 data class ParkingSpace(var vehicle: Vehicle) {
-    private var vehicleList = mutableSetOf<Vehicle>()
+    var vehicleList = mutableSetOf<Vehicle>()
 
     companion object {
         var countRemoveVehicles = 0
@@ -18,23 +18,17 @@ data class ParkingSpace(var vehicle: Vehicle) {
     }
 
 
-    fun checkOutVehicle(plate: String?, indexVehicle: Int, vehicleType: VehicleType?) {
-        val vehicle = vehicleList.elementAt(indexVehicle)
-        when (plate?.let { vehicle.plate.contains(it) }) {
-            true -> {
-                val fee = calculateFee(vehicle, vehicleType)
-                onSuccess(fee, vehicle)
-            }
-            else -> onError()
-        }
-
+    fun checkOutVehicle( vehicleType: VehicleType?) {
+        val fee = calculateFee(vehicle, vehicleType)
+        onSuccess(fee, vehicle)
 
     }
+
 
     private fun calculateFee(vehicle: Vehicle, vehicleType: VehicleType?): Int {
 
         val parkedTime = (Calendar.getInstance().timeInMillis - vehicle.checkInTime.timeInMillis)
-        val hasDiscountCard = vehicle.discountCard?.isNotBlank() == true
+        val hasDiscountCard = vehicle.discountCard?.isNotBlank() ?: false
         var totalFee = 0
         var timeOut = 0
 
@@ -57,7 +51,6 @@ data class ParkingSpace(var vehicle: Vehicle) {
         }
         when (hasDiscountCard) {
             true -> {
-                // 15 * 0.15 = 2,25 15-2,25 = 12,75 = 12 /// 13
                 val discountCard = ceil(totalFee * 0.15).toInt()
                 println(discountCard)
                 totalFee -= discountCard
