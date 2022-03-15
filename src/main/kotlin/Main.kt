@@ -84,7 +84,7 @@ class Main {
                 val vehicleType = removeCar.type
                 val indexVehicle = parking.vehicles.indexOf(removeCar)
                 println(indexVehicle)
-                parkingSpace.getListVehicles(parking.vehicles)
+                parkingSpace.setListVehicles(parking.vehicles)
                 parkingSpace.checkOutVehicle(plate, indexVehicle, vehicleType)
             } catch (e: Exception) {
                 println("Sorry, the check-out failed")

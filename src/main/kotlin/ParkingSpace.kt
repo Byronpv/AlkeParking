@@ -1,6 +1,5 @@
 import java.util.*
 import kotlin.math.ceil
-import kotlin.math.floor
 
 const val TWO_HOURS = 720000L
 const val FIFTEEN_MINUTES = 90000L
@@ -14,14 +13,13 @@ data class ParkingSpace(var vehicle: Vehicle) {
     }
 
 
-    fun getListVehicles(vehicles: MutableSet<Vehicle>) {
+    fun setListVehicles(vehicles: MutableSet<Vehicle>) {
         vehicleList = vehicles
     }
 
 
     fun checkOutVehicle(plate: String?, indexVehicle: Int, vehicleType: VehicleType?) {
         val vehicle = vehicleList.elementAt(indexVehicle)
-
         when (plate?.let { vehicle.plate.contains(it) }) {
             true -> {
                 val fee = calculateFee(vehicle, vehicleType)
